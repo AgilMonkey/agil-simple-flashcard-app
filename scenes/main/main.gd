@@ -30,20 +30,22 @@ func load_flashcards():
 func show_question():
 	if flashcards.size() > 0:
 		var question = flashcards[current_card_index]["question"]
-		$MarginContainer/VBoxContainer/FlashcardPanel/FlashcardLabel.text = question
+		$"%FlashcardContainer"/FlashcardPanel/FlashcardLabel.text = question
 
 # Function to show the answer (in Indonesian)
 func show_flashcard():
 	var answer = flashcards[current_card_index]["answer"]
-	if $MarginContainer/VBoxContainer/FlashcardPanel/FlashcardLabel.text == answer:
+	if $"%FlashcardContainer"/FlashcardPanel/FlashcardLabel.text == answer:
 		answer = flashcards[current_card_index]["question"]
-	$MarginContainer/VBoxContainer/FlashcardPanel/FlashcardLabel.text = answer
+	$"%FlashcardContainer"/FlashcardPanel/FlashcardLabel.text = answer
 
 
 # Function to show the next flashcard
 func show_next_flashcard():
 	# Increment the index to move to the next card
-	current_card_index = (current_card_index + 1) % flashcards.size()  # Loop back to the first card if at the end
+	var old_index = current_card_index
+	current_card_index = randi_range(0, flashcards.size() - 1)  # get random card
+	if current_card_index == old_index: current_card_index += 1 # Add 1 if it's the same card
 	show_question()  # Show the next card's question
 
 

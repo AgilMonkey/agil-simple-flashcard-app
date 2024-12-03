@@ -40,18 +40,23 @@ grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="FlashcardContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 15
 
-[node name="FlashcardPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+[node name="FlashcardPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer/FlashcardContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.8
 
-[node name="FlashcardLabel" type="Label" parent="MarginContainer/VBoxContainer/FlashcardPanel"]
+[node name="FlashcardLabel" type="Label" parent="MarginContainer/VBoxContainer/FlashcardContainer/FlashcardPanel"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Gaming"
@@ -59,27 +64,35 @@ label_settings = SubResource("LabelSettings_h24c3")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="ButtonsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FlashcardContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="ShowAnswerButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+[node name="ShowAnswerButton" type="Button" parent="MarginContainer/VBoxContainer/FlashcardContainer/ButtonsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme = ExtResource("1_ar5bk")
 shortcut = SubResource("Shortcut_mg2ff")
 text = "Show Answer
 "
 
-[node name="NextButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+[node name="NextButton" type="Button" parent="MarginContainer/VBoxContainer/FlashcardContainer/ButtonsContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("1_ar5bk")
 shortcut = SubResource("Shortcut_j8kcy")
 text = "Next"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsContainer/ShowAnswerButton" to="." method="_on_show_answer_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonsContainer/NextButton" to="." method="_on_next_button_pressed"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]Developed by:[/b] Fadilah Muhammad Agil  (2491072)"
+fit_content = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FlashcardContainer/ButtonsContainer/ShowAnswerButton" to="." method="_on_show_answer_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/FlashcardContainer/ButtonsContainer/NextButton" to="." method="_on_next_button_pressed"]
